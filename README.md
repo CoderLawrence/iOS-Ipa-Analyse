@@ -36,7 +36,52 @@ Foundation.tbd                                    0.00K
 UIKit.tbd                                         0.00K
 总体积: 
 ```
+#### 2.比较两个link map文件
 
+```shell
+python ios_ipa_analyse.py $map_link_file_path $target_map_link_file_path
+```
+
+LinkMapParser会分析两个map link文件，然后比较各个模块的体积是否有变化，最后列出体积变大的模块。
+
+#### 输出结果类似于：
+
+```shell
+================================================================================
+                     xxx/link_map_result.txt各模块体积汇总
+================================================================================
+Creating Result File : xxx/link_map_result.txt
+AppDelegate.o                                     0.01M
+ViewController.o                                  0.00M
+main.o                                            0.00M
+libobjc.tbd                                       0.00M
+linker synthesized                                0.00M
+Foundation.tbd                                    0.00M
+UIKit.tbd                                         0.00M
+总体积:                                           0.01M
+
+================================================================================
+                    xxx/target_link_map_result.txt各模块体积汇总
+================================================================================
+Creating Result File : xxx/target_link_map_result.txt
+AppDelegate.o                                     0.64M
+ViewController.o                                  0.00M
+TestCleanPackage.app.xcent                        0.00M
+UnUsedClass.o                                     0.00M
+main.o                                            0.00M
+libobjc.tbd                                       0.00M
+linker synthesized                                0.00M
+Foundation.tbd                                    0.00M
+UIKit.tbd                                         0.00M
+总体积:                                           0.64M
+
+
+================================================================================
+                                    比较结果
+================================================================================
+模块名称                                          基线大小  目标大小  是否新模块
+AppDelegate.o                                     0.01M     0.64M
+```
 
 ## 如何获得LinkMap文件
 
