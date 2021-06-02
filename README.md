@@ -90,6 +90,8 @@ XCode -> Project -> Build Settings -> 把Write Link Map File选项设为yes，�
 
 ## 感谢
 
+感谢这两位开发者，在我寻找思路和实现方案的时候提供了很多参考，甚至有些代码是使用了他们的代码
+
 https://github.com/huanxsd/LinkMap
 
 https://github.com/zgzczzw/LinkMapParser
@@ -98,3 +100,8 @@ https://github.com/zgzczzw/LinkMapParser
 ## 联系我
 
 如果有问题欢迎联系我 coderlawrence@163.com
+
+## 最后
+
+如果喜欢，请顺手我一个star吧~ ：）
+
