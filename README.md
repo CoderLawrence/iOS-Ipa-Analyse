@@ -10,6 +10,21 @@
 
 ## 使用说明
 
+### 1.安装Python环境
+
+iOS_Ipa_Analyse是一个Python脚本，运行该脚本需要开发者的机器有Python环境，不过我们iOS的构建机一般是Mac，所以可以忽略。目前我使用的Python版本是2.7
+
+### 2.运行工具
+
+该工具支持分析一个link map文件和比较两个link map文件，运行的命令分别为：
+
+#### 1、分析一个 link map文件
+
+```shell
+python ios_ipa_analyse.py $map_link_file_path
+```
+
+
 ## 如何获得LinkMap文件
 
 1.在XCode中开启编译选项Write Link Map File \n
