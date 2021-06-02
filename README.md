@@ -1,4 +1,4 @@
-# LinkMap解析工具：检查每个类占用大小
+# LinkMap解析工具：检查每个类占用大小，可以输出到text文本
 
 ## 概述
 
@@ -22,6 +22,19 @@ iOS_Ipa_Analyse是一个Python脚本，运行该脚本需要开发者的机器�
 
 ```shell
 python ios_ipa_analyse.py $map_link_file_path
+```
+
+#### 输出结果：
+
+```shell
+AppDelegate.o                                     0.01K
+ViewController.o                                  0.00K
+main.o                                            0.00K
+libobjc.tbd                                       0.00K
+linker synthesized                                0.00K
+Foundation.tbd                                    0.00K
+UIKit.tbd                                         0.00K
+总体积: 
 ```
 
 
