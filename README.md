@@ -64,15 +64,13 @@ UIKit.tbd                                         0.00M
                     xxx/target_link_map_result.txt各模块体积汇总
 ================================================================================
 Creating Result File : xxx/target_link_map_result.txt
-AppDelegate.o                                     0.64M
-ViewController.o                                  0.00M
-TestCleanPackage.app.xcent                        0.00M
-UnUsedClass.o                                     0.00M
-main.o                                            0.00M
-libobjc.tbd                                       0.00M
-linker synthesized                                0.00M
-Foundation.tbd                                    0.00M
-UIKit.tbd                                         0.00M
+AppDelegate.o                                     0.64K
+ViewController.o                                  0.00K
+main.o                                            0.00K
+libobjc.tbd                                       0.00K
+linker synthesized                                0.00K
+Foundation.tbd                                    0.00K
+UIKit.tbd                                         0.00K
 总体积:                                           0.64M
 
 
