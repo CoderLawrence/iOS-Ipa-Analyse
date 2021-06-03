@@ -101,6 +101,8 @@ def write_link_map_to_result_file(size_map, link_mpa_file_path, link_map_result_
         pass
     print "Creating Result File : %s" % link_map_result_file_path
     output_file = open(link_map_result_file_path, "w")
+    print "%s \t\t\t%s\n\n" % ("文件:".ljust(53), "大小:")
+    output_file.write("%s \t\t\t%s\n\n" % ("文件:".ljust(53), "大小:"))
     for item in a_file_sorted_list:
         # 判断文件大小
         if item[1] / 1024.0 / 1024.0 > 1:
