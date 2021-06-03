@@ -52,9 +52,6 @@ def link_map_file_parser(link_map_file_tmp):
                                 symbol["size"] += size
                             else:
                                 symbol["size"] = size
-                            pass
-                        pass
-                    pass
                 pass
             else:
                 print "invalid #3"
@@ -136,22 +133,22 @@ def red_link_map_file(base_link_map_file_path, link_map_result_file_path):
     try:
         link_map_file = open(base_link_map_file_path)
     except IOError:
-        print "read link map file" + base_link_map_file_path + "failed!"
+        print "read link map file " + base_link_map_file_path + " failed!"
         return
     else:
         try:
             content = link_map_file.read()
         except IOError:
-            print "read link map file" + base_link_map_file_path + "failed!"
+            print "read link map file " + base_link_map_file_path + " failed!"
         else:
             # 检查link map 的合法性
             if not check_link_map_content(content):
-                print "the content of file" + base_link_map_file_path + "is invalid"
+                print "the content of file " + base_link_map_file_path + " is invalid"
                 pass
             link_map_file_tmp = open(base_link_map_file_path)
             size_map = link_map_file_parser(link_map_file_tmp)
             if not size_map:
-                print "the link map parser" + base_link_map_file_path + "failed!"
+                print "the link map parser " + base_link_map_file_path + " failed!"
                 pass
             # analyse_group 参数需要传入，目前是写死的
             write_link_map_to_result_file(size_map, base_link_map_file_path, link_map_result_file_path, False)
@@ -170,7 +167,7 @@ def parse_result_file(result_file_path):
             break
         bundle_and_size = line.split()
         if len(bundle_and_size) == 2 and line.find(":") == -1:
-            bundle_and_size_map = {"name:": bundle_and_size[0], "size": bundle_and_size[1]}
+            bundle_and_size_map = {"name": bundle_and_size[0], "size": bundle_and_size[1]}
             base_bundle_list += [bundle_and_size_map]
             pass
     return base_bundle_list
@@ -186,31 +183,23 @@ def compare_link_map(base_bundle_list, target_bundle_list):
         target_name = target_bundle_map["name"]
         target_size = target_bundle_map["size"]
         # 需要考虑单位不一致问题
-        target_size_value = float(target_size.split("M")[0])
-        if not target_size_value:
+        if target_size.find("M") != -1:
+            # 单位对齐
+            target_size_value = float(target_size.split("M")[0]) * 1024
+        else:
             target_size_value = float(target_size.split("K")[0])
             pass
-        else:
-            # 处理单位对齐问题
-            if target_size_value > 0:
-                target_size_value *= 1024
-                pass
-            # pass
         has_bundle_in_base = 0
         base_size_value = 0
         for base_bundle_map in base_bundle_list:
             base_name = base_bundle_map["name"]
             if base_name == target_name:
                 base_size = base_bundle_map["size"]
-                base_size_value = float(base_size.split("M")[0])
-                if not base_size_value:
-                    base_size_value = float(base_size_value.split("K")[0])
-                    pass
+                if base_size.find("M") != -1:
+                    # 单位对齐
+                    base_size_value = float(base_size.split("M")[0]) * 1024
                 else:
-                    # 处理单位对齐问题
-                    if base_size_value > 0:
-                        base_size_value *= 1024
-                        pass
+                    base_size_value = float(base_size.split("K")[0])
                     pass
                 has_bundle_in_base = 1
                 if base_size_value < target_size_value:
