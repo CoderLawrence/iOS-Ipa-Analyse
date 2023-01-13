@@ -83,10 +83,10 @@ AppDelegate.o                                     0.01M     0.64M
 
 ## 如何获得LinkMap文件
 
-1.在XCode中开启编译选项Write Link Map File \n
+1.在XCode中开启编译选项Write Link Map File
 XCode -> Project -> Build Settings -> 把Write Link Map File选项设为yes，并指定好linkMap的存储位置
 
-2.工程编译完成后，在编译目录里找到Link Map文件（txt类型) 默认的文件地址：~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build/ \n\
+2.工程编译完成后，在编译目录里找到Link Map文件（txt类型) 默认的文件地址：~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build
 
 ## 感谢
 
