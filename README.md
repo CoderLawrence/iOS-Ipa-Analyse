@@ -106,5 +106,5 @@ https://github.com/zgzczzw/LinkMapParser
 
 ## 最后
 
-如果喜欢，请顺手我一个star吧~ ：）
+如果喜欢，请顺手我一个star吧~
 
