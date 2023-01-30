@@ -54,7 +54,7 @@ def link_map_file_parser(link_map_file_tmp):
                                 symbol["size"] = size
                 pass
             else:
-                print "invalid #3"
+                print("invalid #3")
                 pass
     return size_map
 
@@ -89,33 +89,33 @@ def write_link_map_to_result_file(size_map, link_mpa_file_path, link_map_result_
                     pass
                 pass
         else:
-            print "WARN : some error occurred for key",
-            print key
+            print("WARN : some error occurred for key"),
+            print(key)
     # 根据map对文件进行排序
     a_file_sorted_list = sorted(a_file_map.items(), key=lambda x: x[1], reverse=True)
-    print "%s" % "=".ljust(80, '=')
-    print "%s" % (link_mpa_file_path + "各模块体积汇总").center(87)
-    print "%s" % "=".ljust(80, '=')
+    print("%s" % "=".ljust(80, '='))
+    print("%s" % (link_mpa_file_path + "各模块体积汇总").center(87))
+    print("%s" % "=".ljust(80, '='))
     if os.path.exists(link_map_result_file_path):
         os.remove(link_map_result_file_path)
         pass
-    print "Creating Result File : %s" % link_map_result_file_path
+    print("Creating Result File : %s" % link_map_result_file_path)
     output_file = open(link_map_result_file_path, "w")
-    print "%s \t\t\t%s\n\n" % ("文件:".ljust(53), "大小:")
+    print("%s \t\t\t%s\n\n" % ("文件:".ljust(53), "大小:"))
     output_file.write("%s \t\t\t%s\n\n" % ("文件:".ljust(53), "大小:"))
     for item in a_file_sorted_list:
         # 判断文件大小
         if item[1] / 1024.0 / 1024.0 > 1:
-            print "%s%.2fM" % (item[0].ljust(80), item[1] / 1024.0 / 1024.0)
+            print("%s%.2fM" % (item[0].ljust(80), item[1] / 1024.0 / 1024.0))
             output_file.write("%s \t\t\t%.2fM\n" % (item[0].ljust(55), item[1] / 1024.0 / 1024.0))
             pass
         else:
-            print "%s%.2fK" % (item[0].ljust(55), item[1] / 1024.0)
+            print("%s%.2fK" % (item[0].ljust(55), item[1] / 1024.0))
             output_file.write("%s \t\t\t%.2fK\n" % (item[0].ljust(55), item[1] / 1024.0))
             pass
         pass
-    print "%s%.2fM" % ("总体积:".ljust(53), total_size / 1024.0 / 1024.0)
-    print "\n\n\n\n\n"
+    print("%s%.2fM" % ("总体积:".ljust(53), total_size / 1024.0 / 1024.0))
+    print("\n\n\n\n\n")
     output_file.write("%s%.2fM" % ("总体积:".ljust(53), total_size / 1024.0 / 1024.0))
     output_file.close()
 
@@ -133,24 +133,24 @@ def check_link_map_content(link_map_content):
 # 解析link map 文件并且输出到指定目录下
 def red_link_map_file(base_link_map_file_path, link_map_result_file_path):
     try:
-        link_map_file = open(base_link_map_file_path)
+        link_map_file = open(base_link_map_file_path, 'r', encoding='utf-8', errors='ignore')
     except IOError:
-        print "read link map file " + base_link_map_file_path + " failed!"
+        print("read link map file " + base_link_map_file_path + " failed!")
         return
     else:
         try:
             content = link_map_file.read()
         except IOError:
-            print "read link map file " + base_link_map_file_path + " failed!"
+            print("read link map file " + base_link_map_file_path + " failed!")
         else:
             # 检查link map 的合法性
             if not check_link_map_content(content):
-                print "the content of file " + base_link_map_file_path + " is invalid"
+                print("the content of file " + base_link_map_file_path + " is invalid")
                 pass
-            link_map_file_tmp = open(base_link_map_file_path)
+            link_map_file_tmp = open(base_link_map_file_path, 'r', encoding='utf-8', errors='ignore')
             size_map = link_map_file_parser(link_map_file_tmp)
             if not size_map:
-                print "the link map parser " + base_link_map_file_path + " failed!"
+                print("the link map parser " + base_link_map_file_path + " failed!")
                 pass
             # analyse_group 参数需要传入，目前是写死的
             write_link_map_to_result_file(size_map, base_link_map_file_path, link_map_result_file_path, False)
@@ -177,10 +177,10 @@ def parse_result_file(result_file_path):
 
 # 比较两个 link map的差异
 def compare_link_map(base_bundle_list, target_bundle_list):
-    print "%s" % "=".ljust(80, '=')
-    print "%s" % "比较结果".center(84)
-    print "%s" % "=".ljust(80, '=')
-    print "%s%s%s%s" % ("模块名称".ljust(54), "基线大小".ljust(14), "目标大小".ljust(14), "是否新模块".ljust(14))
+    print("%s" % "=".ljust(80, '='))
+    print("%s" % "比较结果".center(84))
+    print("%s" % "=".ljust(80, '='))
+    print("%s%s%s%s" % ("模块名称".ljust(54), "基线大小".ljust(14), "目标大小".ljust(14), "是否新模块".ljust(14)))
     for target_bundle_map in target_bundle_list:
         target_name = target_bundle_map["name"]
         target_size = target_bundle_map["size"]
@@ -205,26 +205,24 @@ def compare_link_map(base_bundle_list, target_bundle_list):
                     pass
                 has_bundle_in_base = 1
                 if base_size_value < target_size_value:
-                    print "%s%s%s" % (target_name.ljust(50), str("%.2fK" % base_size_value).ljust(10),
-                                      str("%.2fK" % target_size_value).ljust(10))
+                    print("%s%s%s" % (target_name.ljust(50), str("%.2fK" % base_size_value).ljust(10), str("%.2fK" % target_size_value).ljust(10)))
                     pass
                 break
             pass
         if has_bundle_in_base == 0:
-            print "%s%s%s%s" % (target_name.ljust(50), str("%.2fK" % base_size_value).ljust(10),
-                                str("%.2fK" % target_size_value).ljust(10), "Y".center(10))
+            print("%s%s%s%s" % (target_name.ljust(50), str("%.2fK" % base_size_value).ljust(10), str("%.2fK" % target_size_value).ljust(10), "Y".center(10)))
             pass
         pass
 
 
 def print_help():
-    print "%s" % "=".ljust(80, '=')
-    print "%s%s\n" % ("".ljust(10), "Link Map 文件分析工具".ljust(80))
-    print "%s%s\n" % ("".ljust(10), "- Usage : python ios_ipa_analyse.py arg1 <arg2>".ljust(80))
-    print "%s%s" % ("".ljust(10), "- arg1 ：基准LinkMap文件路径".ljust(80))
-    print "%s%s\n" % ("".ljust(10), "- arg2 ：待比较LinkMap文件路径".ljust(80))
-    print "%s%s" % ("".ljust(10), "备注：参数2为空时，只输出基准LinkMap分析结果".ljust(80))
-    print "%s" % "=".ljust(80, '=')
+    print("%s" % "=".ljust(80, '='))
+    print("%s%s\n" % ("".ljust(10), "Link Map 文件分析工具".ljust(80)))
+    print("%s%s\n" % ("".ljust(10), "- Usage : python ios_ipa_analyse.py arg1 <arg2>".ljust(80)))
+    print("%s%s" % ("".ljust(10), "- arg1 ：基准LinkMap文件路径".ljust(80)))
+    print("%s%s\n" % ("".ljust(10), "- arg2 ：待比较LinkMap文件路径".ljust(80)))
+    print("%s%s" % ("".ljust(10), "备注：参数2为空时，只输出基准LinkMap分析结果".ljust(80)))
+    print("%s" % "=".ljust(80, '='))
 
 
 def clean_result_file(file_name):
