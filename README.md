@@ -1,30 +1,29 @@
-# LinkMap解析工具：检查每个类占用大小，可以输出到txt文本
+# Link Map Parser: Tool for Checking Class Size
 
-## 概述
+## Overview
 
-一个大型的项目，只是代码段就有可能超过100M，算上armv7和arm64架构，就会超过200M。 这时候检查到底是哪个类、哪个第三方库占用了太多空间，就显得尤为重要。
+In a large project, just the code section alone can exceed 100M, and with both armv7 and arm64 architectures, it can go over 200M. At this point, it becomes crucial to determine which classes or third-party libraries are taking up too much space.
 
-这个工具是专为用来分析项目的LinkMap文件，得出每个类或者库所占用的空间大小（代码段+数据段），方便开发者快速定位需要优化的类或静态库。
+This tool is designed to analyze a project's Link Map file, determining the space each class or library occupies (code section + data section). This makes it easy for developers to quickly identify classes or static libraries that need optimization.
 
-这个工具使用Python开发，可以部署到构建机平台，每次构建的时候可以输出包大小差异，方便开发者关注包的大小
+This tool is developed in Python and can be deployed on build machine platforms. It can output package size differences each time a build occurs, enabling developers to focus on package size.
 
-## 使用说明
+## Instructions
 
-### 1.安装Python环境
+### 1. Install Python Environment
 
-iOS_Ipa_Analyse是一个Python脚本，运行该脚本需要开发者的机器有Python环境，不过我们iOS的构建机一般是Mac，所以可以忽略。目前我使用的Python版本是2.7
+iOS_Ipa_Analyse is a Python script that requires Python environment on the developer's machine to run. Since our iOS build machines are generally Macs, this requirement can be ignored. Currently, I am using Python version 2.7.
 
-### 2.运行工具
+### 2. Running the Tool
 
-该工具支持分析一个link map文件和比较两个link map文件，运行的命令分别为：
+This tool supports analyzing a single link map file and comparing two link map files. The commands to run are as follows:
 
-#### 1、分析一个 link map文件
+#### 1. Analyzing a Single Link Map File
 
 ```shell
 python ios_ipa_analyse.py $map_link_file_path
 ```
-
-#### 输出结果：
+##### Output:
 
 ```shell
 AppDelegate.o                                     0.01K
@@ -36,15 +35,7 @@ Foundation.tbd                                    0.00K
 UIKit.tbd                                         0.00K
 总体积: 
 ```
-#### 2.比较两个link map文件
-
-```shell
-python ios_ipa_analyse.py $map_link_file_path $target_map_link_file_path
-```
-
-LinkMapParser会分析两个map link文件，然后比较各个模块的体积是否有变化，最后列出体积变大的模块。
-
-#### 输出结果类似于：
+#### 2. Comparing Two Link Map Files
 
 ```shell
 ================================================================================
@@ -80,31 +71,28 @@ UIKit.tbd                                         0.00K
 模块名称                                          基线大小  目标大小  是否新模块
 AppDelegate.o                                     0.01M     0.64M
 ```
+## Obtaining the Link Map File
 
-## 如何获得LinkMap文件
+1、Enable the "Write Link Map File" compilation option in Xcode:
 
-1.在XCode中开启编译选项Write Link Map File
+XCode -> Project -> Build Settings -> Set "Write Link Map File" to yes and specify the linkMap storage location.
 
-XCode -> Project -> Build Settings -> 把Write Link Map File选项设为yes，并指定好linkMap的存储位置
+2、After the project compiles, find the Link Map file (in txt format) in the build directory:
 
-2.工程编译完成后，在编译目录里找到Link Map文件（txt类型) 
+Default file location: ~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build
 
-默认的文件地址：~/Library/Developer/Xcode/DerivedData/XXX-xxxxxxxxxxxxx/Build/Intermediates/XXX.build/Debug-iphoneos/XXX.build
+## Acknowledgments
 
-## 感谢
+Special thanks to these developers for providing valuable references and even code snippets during my search for solutions and implementation:
 
-感谢这两位开发者，在我寻找思路和实现方案的时候提供了很多参考，甚至有些代码是使用了他们的代码
+ - https://github.com/huanxsd/LinkMap
+ - https://github.com/zgzczzw/LinkMapParser
 
-https://github.com/huanxsd/LinkMap
-
-https://github.com/zgzczzw/LinkMapParser
-
-
-## 联系我
-
-如果有问题欢迎联系我 coderlawrence@163.com
-
-## 最后
-
-如果喜欢，请顺手我一个star吧~
+## Contact Me
+ 
+ If you have any questions, feel free to reach out to me at coderlawrence@163.com.
+ 
+## Conclusion
+ 
+ If you find this helpful, please consider giving it a star!
 
