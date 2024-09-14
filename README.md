@@ -38,6 +38,14 @@ UIKit.tbd                                         0.00K
 #### 2. Comparing Two Link Map Files
 
 ```shell
+python ios_ipa_analyse.py $map_link_file_path $target_map_link_file_path
+```
+
+Link Map Parser analyzes two map link files, compares the sizes of various modules for changes, and lists out modules that have increased in size.
+
+##### Output is similar to:
+
+```shell
 ================================================================================
                      xxx/link_map_result.txt各模块体积汇总
 ================================================================================
